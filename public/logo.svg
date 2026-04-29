@@ -1,0 +1,11 @@
+<svg width="220" height="48" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#g)"/>
+  <path d="M14 30V18H18L26 26V18H30V30H26L18 22V30H14Z" fill="white"/>
+  <text x="58" y="31" fill="white" font-size="22" font-family="Inter, Arial, sans-serif" font-weight="800" letter-spacing="-0.6">NEOMAX</text>
+  <defs>
+    <linearGradient id="g" x1="2" y1="2" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F6EF7"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+</svg>
