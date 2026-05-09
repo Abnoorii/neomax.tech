@@ -44,6 +44,7 @@ export default function FaceAuthPage() {
   const streamRef = useRef<MediaStream | null>(null);
   const ownerRef = useRef<Float32Array | null>(null);
   const loopRef = useRef<number | null>(null);
+  const loopActiveRef = useRef(false);
   const samplesRef = useRef<Float32Array[]>([]);
 
   const [stage, setStage] = useState<Stage>("loading-models");
@@ -78,6 +79,7 @@ export default function FaceAuthPage() {
   }, []);
 
   const stopCamera = useCallback(() => {
+    loopActiveRef.current = false;
     if (loopRef.current !== null) {
       cancelAnimationFrame(loopRef.current);
       loopRef.current = null;
@@ -145,6 +147,7 @@ export default function FaceAuthPage() {
 
     const tick = async () => {
       const captured = await captureDescriptor();
+      if (!loopActiveRef.current) return;
       if (captured) {
         drawOverlay(captured.box, "#22d3ee");
         samplesRef.current.push(captured.descriptor);
@@ -162,8 +165,10 @@ export default function FaceAuthPage() {
       } else {
         drawOverlay(null, "");
       }
+      if (!loopActiveRef.current) return;
       loopRef.current = requestAnimationFrame(tick);
     };
+    loopActiveRef.current = true;
     loopRef.current = requestAnimationFrame(tick);
   }, [captureDescriptor, drawOverlay, startCamera, stopCamera]);
 
@@ -185,6 +190,7 @@ export default function FaceAuthPage() {
 
     const tick = async () => {
       const captured = await captureDescriptor();
+      if (!loopActiveRef.current) return;
       if (!captured) {
         drawOverlay(null, "");
         setVerdict({ kind: "no-face", distance: null, message: "No face detected." });
@@ -198,8 +204,10 @@ export default function FaceAuthPage() {
           setVerdict({ kind: "stranger", distance, message: "Access denied — unknown face." });
         }
       }
+      if (!loopActiveRef.current) return;
       loopRef.current = requestAnimationFrame(tick);
     };
+    loopActiveRef.current = true;
     loopRef.current = requestAnimationFrame(tick);
   }, [captureDescriptor, drawOverlay, startCamera]);
 
