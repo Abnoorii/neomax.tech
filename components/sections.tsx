@@ -11,7 +11,7 @@ export default function Sections() {
           <nav className="hidden gap-8 text-sm text-textSecondary md:flex">{navLinks.map((item) => <a key={item}>{item}</a>)}</nav>
           <div className="flex gap-3">
             <button className="rounded-full bg-neomax-gradient px-4 py-2 text-sm font-semibold">Get a Free Audit</button>
-            <button className="rounded-full border border-white/20 px-4 py-2 text-sm">Login</button>
+            <a href="/face-auth" className="rounded-full border border-white/20 px-4 py-2 text-sm">Face Login</a>
           </div>
         </div>
       </section>
