@@ -4,6 +4,7 @@ import { getUserPermissions } from '@/lib/permissions'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
 import { PeriodBanner } from '@/components/layout/PeriodBanner'
+import { Toaster } from '@/components/ui/toaster'
 import type { AccountingPeriod } from '@/types/database'
 
 export default async function AppLayout({
@@ -68,6 +69,7 @@ export default async function AppLayout({
           {children}
         </main>
       </div>
+      <Toaster />
     </div>
   )
 }
