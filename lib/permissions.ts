@@ -1,15 +1,7 @@
 import { createClient } from './supabase/server'
-
-export type PermissionCode = string
-
-export interface UserPermissions {
-  permissions: Set<string>
-  isAdmin: boolean
-  workshopScope: string[] | null  // null = all
-  sectionScope: string[] | null
-  employeeScope: string[] | null
-  payTypeScope: string[] | null
-}
+export type { PermissionCode, UserPermissions } from './permissions-shared'
+export { can, canAny, canAll } from './permissions-shared'
+import type { UserPermissions } from './permissions-shared'
 
 export async function getUserPermissions(userId: string): Promise<UserPermissions> {
   const supabase = await createClient()
@@ -60,19 +52,6 @@ export async function getUserPermissions(userId: string): Promise<UserPermission
       ? payTypeScope.data.map(r => r.pay_type)
       : null,
   }
-}
-
-export function can(perms: UserPermissions, permission: string): boolean {
-  if (perms.isAdmin) return true
-  return perms.permissions.has(permission)
-}
-
-export function canAny(perms: UserPermissions, permissions: string[]): boolean {
-  return permissions.some(p => can(perms, p))
-}
-
-export function canAll(perms: UserPermissions, permissions: string[]): boolean {
-  return permissions.every(p => can(perms, p))
 }
 
 // Server-side guard — throws if permission not held
