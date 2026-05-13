@@ -135,7 +135,27 @@ async function executeApprovedAction(req: Record<string, unknown>, approverId: s
       }).eq('id', req.target_record_id as string)
       break
     }
-    // Other action types (payroll, advance) handled by their own modules
+    case 'payroll_run_approval': {
+      const runId = (payload.run_id ?? req.target_record_id) as string
+      await supabase
+        .from('payroll_runs')
+        .update({ status: 'approved', approved_by: approverId, approved_at: new Date().toISOString() })
+        .eq('id', runId)
+        .eq('status', 'pending_approval')
+      break
+    }
+    case 'large_advance': {
+      await supabase.from('advances').insert({
+        employee_id: payload.employee_id as string,
+        amount: payload.amount as number,
+        advance_type: payload.advance_type as string,
+        description: (payload.description as string | null) ?? null,
+        date: payload.date as string,
+        entered_by: approverId,
+        status: 'active',
+      })
+      break
+    }
     default:
       break
   }
