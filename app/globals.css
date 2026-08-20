@@ -46,3 +46,81 @@
 [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
+
+/* ==========================================================================
+   NEOMAX marketing site
+   Chart colors below are computed + validated (OKLCH lightness band, chroma
+   floor, CVD separation, WCAG contrast), not hand-picked. See DESIGN.md.
+   ========================================================================== */
+
+:root {
+  /* Chart palette — categorical caps at 2 slots; a 3rd green collides with
+     lime under both normal and simulated CVD, so `success` stays status-only. */
+  --chart-cat-1: #7657FF;
+  --chart-cat-2: #729620;
+
+  /* Ordinal funnel ramps: one hue, monotone lightness, per-mode steps. */
+  --funnel-1-dark: #C9BAFF;
+  --funnel-2-dark: #9C85FF;
+  --funnel-3-dark: #7657FF;
+  --funnel-1-light: #B5A2FF;
+  --funnel-2-light: #8E74F5;
+  --funnel-3-light: #5B3EE0;
+
+  /* Hairlines. Borders carry structure here instead of shadows. */
+  --hairline-light: #E7E9EE;
+  --hairline-dark: rgba(255, 255, 255, 0.10);
+  --hairline-dark-strong: rgba(255, 255, 255, 0.16);
+}
+
+/* Smooth in-page anchors, but never fight a user who asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Sticky header offset for anchor targets so headings never hide behind it. */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* A single, consistent focus ring across the marketing site. */
+.neomax-root :focus-visible {
+  outline: 2px solid #7657FF;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.neomax-root.on-dark :focus-visible,
+.neomax-dark :focus-visible {
+  outline-color: #B7F34A;
+}
+
+/* Numeric columns and metrics line up on the decimal. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+}
+
+/* Reduced motion: collapse every transition/animation to a near-instant state
+   change. Content is authored visible-by-default, so nothing is lost. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Recharts focus + surface tuning */
+.recharts-wrapper:focus-visible {
+  outline: 2px solid #7657FF;
+  outline-offset: 4px;
+}
+.recharts-surface {
+  overflow: visible;
+}

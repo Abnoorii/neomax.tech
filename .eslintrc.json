@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "react/no-unescaped-entities": "warn",
+    "@typescript-eslint/no-empty-object-type": "warn",
+    "@typescript-eslint/no-unused-expressions": "warn"
+  },
+  "overrides": [
+    {
+      "files": [
+        "app/(site)/**/*.{ts,tsx}",
+        "app/actions/contact.ts",
+        "app/not-found.tsx",
+        "app/sitemap.ts",
+        "app/robots.ts",
+        "app/opengraph-image.tsx",
+        "components/site/**/*.{ts,tsx}",
+        "content/**/*.{ts,tsx}",
+        "lib/site/**/*.{ts,tsx}"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_"
+          }
+        ],
+        "react/no-unescaped-entities": "error",
+        "@typescript-eslint/no-explicit-any": "error"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "supabase/",
+    "*.config.js"
+  ]
+}

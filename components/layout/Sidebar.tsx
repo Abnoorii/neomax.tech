@@ -8,8 +8,8 @@ import {
   Shield, Upload, Bot, ScrollText, Settings, ChevronRight
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { UserPermissions } from '@/lib/permissions'
-import { can } from '@/lib/permissions'
+import type { UserPermissions } from '@/lib/permissions-shared'
+import { can } from '@/lib/permissions-shared'
 
 interface NavItem {
   key: string
