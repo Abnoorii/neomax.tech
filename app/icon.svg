@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" rx="20" fill="#080B12"/>
+  <mask id="cut">
+    <rect width="100" height="100" fill="black"/>
+    <rect x="18" y="18" width="64" height="64" rx="18" fill="white"/>
+    <rect x="33" y="33" width="34" height="34" rx="7" fill="black"/>
+    <polygon points="10,68 92,46 92,56 10,78" fill="black"/>
+  </mask>
+  <rect width="100" height="100" fill="#7657FF" mask="url(#cut)"/>
+</svg>
